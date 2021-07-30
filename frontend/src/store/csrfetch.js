@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import findCookie from '../utils/findCookie';
 import { SetErrors } from './errors';
 
