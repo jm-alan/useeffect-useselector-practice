@@ -29,6 +29,9 @@ export default function App () {
         <Route exact path='/posts'>
           <Posts />
         </Route>
+        <Route exact path='/posts/:postId'>
+          <Posts />
+        </Route>
       </Switch>
     </>
   );

@@ -1,8 +1,10 @@
 import csrfetch from './csrfetch';
 
 const GET_ALL_POSTS = 'posts/GET_ALL_POSTS';
+const GET_ONE_POST = 'posts/GET_ONE';
 const CREATE_POST = 'posts/CREATE';
 const UNLOAD_POSTS = 'posts/UNLOAD';
+const UNLOAD_CURRENT_POST = 'posts/UNLOAD_CURRENT';
 
 const loadPosts = posts => ({
   type: GET_ALL_POSTS,
@@ -12,6 +14,15 @@ const loadPosts = posts => ({
 const makePost = post => ({
   type: CREATE_POST,
   post
+});
+
+export const LoadOnePost = postId => ({
+  type: GET_ONE_POST,
+  postId
+});
+
+export const UnloadCurrentPost = () => ({
+  type: UNLOAD_CURRENT_POST
 });
 
 export const UnloadPosts = () => ({
@@ -29,7 +40,9 @@ export const CreatePost = newPost => async dispatch => {
 };
 
 const initialState = {
-  all: {}
+  all: {},
+  current: null,
+  loaded: false
 };
 
 export default function reducer (state = initialState, action) {
@@ -39,7 +52,8 @@ export default function reducer (state = initialState, action) {
         ...state,
         all: {
           ...action.posts
-        }
+        },
+        loaded: true
       };
     case CREATE_POST:
       return {
@@ -48,6 +62,16 @@ export default function reducer (state = initialState, action) {
           ...state.all,
           [action.post.id]: action.post
         }
+      };
+    case GET_ONE_POST:
+      return {
+        ...state,
+        current: state.all[action.postId]
+      };
+    case UNLOAD_CURRENT_POST:
+      return {
+        ...state,
+        current: null
       };
     case UNLOAD_POSTS:
       return {

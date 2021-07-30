@@ -1,18 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { CreatePost, GetPosts, UnloadPosts } from '../../store/posts';
+import SinglePost from './SinglePost';
 
 export default function Posts () {
   const dispatch = useDispatch();
 
-  const allPosts = useSelector(
-    state => state.posts.all,
-    (prev, incoming) => {
-      console.log(prev === incoming);
-      return prev === incoming;
-    }
-  );
+  const allPosts = useSelector(state => state.posts.all);
 
   const [title, setPostTitle] = useState('');
   const [body, setPostBody] = useState('');
@@ -42,16 +38,23 @@ export default function Posts () {
         />
         <button type='submit'>Something?</button>
       </form>
-      {Object.values(allPosts).map((post, idx) => (
-        <div className='post' key={idx}>
-          <h1>
-            {post.title}
-          </h1>
-          <h4>
-            {post.body}
-          </h4>
+      <div className='posts-and-post'>
+        <div>
+          {Object.values(allPosts).map((post, idx) => (
+            <div className='post' key={idx}>
+              <h1>
+                {post.title}
+              </h1>
+              <h4>
+                {post.body}
+              </h4>
+            </div>
+          ))}
         </div>
-      ))}
+        <div>
+          <SinglePost />
+        </div>
+      </div>
     </div>
   );
 }
