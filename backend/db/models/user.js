@@ -47,8 +47,8 @@ module.exports = (sequelize, { DataTypes, fn }) => {
       return (await newUser.save()).info;
     }
 
-    static associate (models) {
-
+    static associate ({ Post }) {
+      User.hasMany(Post, { foreignKey: 'userId' });
     }
   }
 
