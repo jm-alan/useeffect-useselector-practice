@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Home from './components/Home';
 import NavBar from './components/NavBar';
+import Posts from './components/Posts';
 import csrfetch from './store/csrfetch';
 import { RestoreUser } from './store/session';
 
@@ -22,8 +23,11 @@ export default function App () {
     <>
       <NavBar />
       <Switch>
-        <Route path='/'>
+        <Route exact path='/'>
           <Home />
+        </Route>
+        <Route exact path='/posts'>
+          <Posts />
         </Route>
       </Switch>
     </>
