@@ -13,7 +13,7 @@ const initApp = async (port, app) => {
   }
 };
 
-const syncDB = async () => await db.sequelize.sync();
+const syncDB = async () => await db.sequelize.sync({ alter: true });
 
 (async () => {
   for (const port in apps) await initApp(port, apps[port]);
